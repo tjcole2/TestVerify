@@ -20,13 +20,17 @@ allprojects {
     }
 }
 
+buildscript{
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile 'com.nexmo:verify:<latest_version>'
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-repositories {
-    mavenCentral()
-}
-dependencies {
-    compile 'com.nexmo:verify:<latest_version>'
-}
