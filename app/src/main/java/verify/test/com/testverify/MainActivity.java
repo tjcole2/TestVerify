@@ -31,14 +31,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Context context = getApplicationContext();
-        nexmo = new NexmoAPI(TAG,context);
+        nexmo = new NexmoAPI(TAG,context); //This is what I use to access Nexmo Stuff
     }
 
+    /*
+     * getVerifiedUser([COUNTRY CODE (In our case "US")], [PHONE NUMBER (Start with 1 or what ever prefix is needed for that country)])
+     * This will initiate the verification process. I did notice that it texted me and then called me shortly after. Gonna
+     * need to figure out how to delay that more until it is necessary. Probably also need to figure out how to grab
+     * a users phone number automatically.
+     */
     public void startVerification(View view){
         nexmo.getVerifyClient().getVerifiedUser("US", myPhoneNumber);
         //TODO: Fetch User Phone Number
     }
 
+    /*
+     * So, checkPinCode doesn't return anything, but if the correct pin is passed to it, it will change
+     * the user's status to "verified". So we need to use getUserStatus to check the result of the 
+     * verification.
+     */
     public void verifyUser(View view) {
         EditText et = (EditText) findViewById(R.id.editText2);
         nexmo.getVerifyClient().checkPinCode(et.getText().toString()); //This verifies it.
